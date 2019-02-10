@@ -1,3 +1,7 @@
-<p>
-  home works!
-</p>
+<button class="primary button">
+  <angular2csv [data]="data" filename="test.csv" [options]="options"></angular2csv>
+  <p>{{output}}</p>
+
+</button>
+
+<input type="file" (change)="onChange($event)">

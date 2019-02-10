@@ -9,6 +9,7 @@ import { GenKeysComponent } from './gen-keys/gen-keys.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { Angular2CsvModule } from 'angular2-csv';
 import { AddOrderComponent } from './add-order/add-order.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AddOrderComponent } from './add-order/add-order.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    Angular2CsvModule ,
     FormsModule,
     RouterModule.forRoot([
       {path: 'orderdata', component: OrderDataComponent},
