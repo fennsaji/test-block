@@ -1,0 +1,21 @@
+<div class="container">
+    <div>
+        <label>User Id: </label>
+        <input type="number" [(ngModel)]="uid">
+        <label>Password: </label>
+        <input type="password" [(ngModel)]="password">
+        <br>
+        <button (click)="onGetData()">Get Data</button>
+        <br>
+    </div> 
+    <div *ngIf="sharedData?.orders">
+        <p>{{sharedData.orders}} <strong>Orders On </strong>{{sharedData.addedOn | date}}</p>
+        <!-- <p>{{sharedData.scAdress}}</p>
+        <p>{{sharedData.index}}</p> -->
+        <h6>Hash from Blockchain:</h6>
+        <p>{{bHash}}</p>
+        <h6>Hash Generated</h6>
+        <p>{{gHash}}</p>
+        <h5 *ngIf="bHash == gHash">Hash Matches</h5>
+    </div>
+</div>

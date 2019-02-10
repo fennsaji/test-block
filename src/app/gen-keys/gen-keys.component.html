@@ -1,0 +1,15 @@
+<div>
+  <label>User Id: </label>
+  <input type="number" [(ngModel)]="uid">
+  <br>
+  <label>Password: </label>
+  <input type="text" [(ngModel)]="passphrase">
+  <br>
+  <button (click)="onGenerateKey()">Generate Key</button>
+  <br>
+</div>
+<div>
+  <br>
+  <p>Private Key: {{privkey}}</p>
+  <p>Public Key: {{pubkey}}</p>
+</div>
