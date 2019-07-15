@@ -81,8 +81,8 @@ export class OrderDataComponent implements OnInit {
       console.log(decryptedData.data)
       this.gHash = "0x" + shajs('sha256').update(decryptedData.data).digest('hex');
       decryptedData = JSON.parse(decryptedData.data);
-        this.sharedData = decryptedData;
-        this.getHash(this.sharedData.index);
+      this.sharedData = decryptedData;
+      this.getHash(this.sharedData.index);
     })
   }
 

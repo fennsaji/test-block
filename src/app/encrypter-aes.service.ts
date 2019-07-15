@@ -70,7 +70,7 @@ export class EncrypterAesService {
       ["encrypt", "decrypt"]
     ).then(async (key) => {
         this.key = key;
-        console.log(key)
+        // console.log(key)
 
         let key2 = await crypto.subtle.exportKey("jwk", key);
         let jsonKey = JSON.stringify(key2);
@@ -82,7 +82,7 @@ export class EncrypterAesService {
           true,
           ["encrypt", "decrypt"]
         );
-        console.log(key2, result);
+        // console.log(key2, result);
         
     });
 
@@ -98,7 +98,7 @@ export class EncrypterAesService {
       ["encrypt", "decrypt"]
     ).then(key => {
       this.key2 = key;
-      console.log("PK", this.key2)
+      // console.log("PK", this.key2)
     })
    }
 
@@ -156,26 +156,25 @@ export class EncrypterAesService {
           throw new Error();
         }
 
-        // let dataBuffer = new Buffer(data); 
-        
-
-
         let encPassword;
         try{
-          // let key = await crypto.subtle.exportKey("raw", aesKey);
-          // console.log(key, iv)
+          let key = await crypto.subtle.exportKey("jwk", aesKey);
+          console.log(key, iv)
           let file = new File([JSON.stringify(new Buffer(iv))], 'iv-new.txt', {type: 'txt/plain'})
           saveAs(file, "myFile2-iv" + ".txt");
           // let file2 = new File([JSON.stringify(new Buffer(rawKey))], 'iv-new.txt', {type: 'txt/plain'})
           // saveAs(file2, "myFile2-key" + ".txt");
-          console.log(new Buffer(rawKey))
-          encPassword = await window.crypto.subtle.encrypt(
-            {
-              name: "RSA-OAEP"
-            },
-            cryptoPublicKey,
-            new Buffer(rawKey)
-          );
+          console.log(new Uint8Array(rawKey))
+          var encrypt = new JsEncryptModule.JSEncrypt();
+          encrypt.setPublicKey(publicKey);
+          encPassword = encrypt.encrypt(key.k);
+          // encPassword = await window.crypto.subtle.encrypt(
+          //   {
+          //     name: "RSA-OAEP"
+          //   },
+          //   cryptoPublicKey,
+          //   new Uint8Array(rawKey)
+          // );
           let data3 = JSON.stringify(new Buffer(data));
           let data4 = new Buffer(JSON.parse(data3).data);
 
@@ -213,14 +212,14 @@ export class EncrypterAesService {
           //   encPassword
           // );
           console.log(encPassword, rawKey)
-          let file2 = new File([str], 'iv-new.txt', {type: 'txt/plain'})
+          let file2 = new File([encPassword], 'iv-new.txt', {type: 'txt/plain'})
           saveAs(file2, "myFile2-key" + ".txt");
         } catch(err){
           throw new Error();
         }
         // var enc = new TextDecoder("utf-8");
         // console.log(enc.decode(dataBuffer));
-        return {encryptedData: JSON.stringify(new Buffer(data)), encryptedKey: encPassword};
+        return {encryptedData: new Buffer(data), encryptedKey: encPassword};
       }
 
       importRsaKey(pem) {
